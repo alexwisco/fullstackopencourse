@@ -15,11 +15,13 @@ function App() {
 
       <Header course = {course}/>
       
-      <Content part = {part1} exercises = {exercises1}/> 
-      <Content part = {part2} exercises = {exercises2}/>
-      <Content part = {part3} exercises = {exercises3}/>
-
-      
+      <Content part1 = {part1}
+              part2 = {part2}
+              part3 = {part3}
+              exercises1 = {exercises1}
+              exercises2 = {exercises2}
+              exercises3 = {exercises3}/> 
+    
       <Total exercises1 = {exercises1}
              exercises2 ={exercises2}
              exercises3={exercises3}/>
@@ -27,18 +29,6 @@ function App() {
   )
 }
 
-//
-/*
-<div>
-    <h1> {course} </h1>
-    <p> {part1} {exercises1} </p>
-    <p>{part2} {exercises2} </p>
-    <p>{part3} {exercises3} </p>
-    <p>
-    Number of exercies {exercises1 + exercises2 + exercises3}
-    </p>
-    </div>
-*/
 const Header = (props) => {
   console.log('this is the header: ' + props.course)
 
@@ -50,10 +40,12 @@ const Header = (props) => {
 }
 
 const Content = (props) => {
-  console.log('this is the content: ' + props.part)
+  console.log('')
   return(
     <div>
-      <p> {props.part} {props.exercises} </p>
+      <Part name = {props.part1} number = {props.exercises1}/>
+      <Part name = {props.part2} number = {props.exercises2}/>
+      <Part name = {props.part3} number = {props.exercises3}/>
     </div>
   )
 }
@@ -63,7 +55,17 @@ const Total = (props) => {
   console.log('this is the Total: ' +  tote)
   return(
     <div>
-      <p> {tote}  </p>
+      <p> Total exercises: {tote}  </p>
+    </div>
+  )
+}
+
+const Part = (props) => {
+  console.log('this is Part: ' + props.name + " with "
+     + props.number + " exercises" )
+  return(
+    <div>
+      <p> {props.name} {props.number} </p>
     </div>
   )
 }
