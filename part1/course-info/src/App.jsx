@@ -25,6 +25,9 @@ function App() {
       <Total exercises1 = {exercises1}
              exercises2 ={exercises2}
              exercises3={exercises3}/>
+
+
+    
     </div>
   )
 }
@@ -69,5 +72,6 @@ const Part = (props) => {
     </div>
   )
 }
+
 
 export default App
