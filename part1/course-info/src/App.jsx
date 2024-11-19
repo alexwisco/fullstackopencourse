@@ -9,65 +9,63 @@ import { useState } from 'react'
 // do what I did, but a little differently, so I will redo with the proper formatting
 
 function App() {
-  const course = 'Half Stack App Development'
-
-  const parts = [
-    {
-    name: ' Fundamentals of React',
-    exercises: 10,
-    },
-
-    {
-    name: 'Using props to pass data',
-    exercises: 7,
-    },
-
-    { 
-    name: 'State of a component',
-    exercises: 14
-    }
-
-  ]
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
   return (
     <div>
 
       <Header course = {course}/>
     
-      <Content parts = {parts} />
+      <Content course = {course} />
 
-  
-    
-      <Total parts = {parts}/>
+      <Total course = {course}/>
 
     </div>
   )
 }
 
 // Insert div with h1 title
-const Header = (props) => {
-  console.log('this is the header: ' + props.course)
+const Header = ({course}) => {
+  console.log('this is the header: ' + course.name)
   return(
     <div>
-      <h1> {props.course}  </h1>
+      <h1> {course.name}  </h1>
     </div>
   )
 }
 
 
-const Content = ({parts}) => {
+const Content = ({course}) => {
   // For Part components, match the index from 'parts' to the same index from 'ex'
   // to properly format the Part components into the Content component
+
   return(
     <div>
-      <Part part = {parts[0]}/>
-      <Part part = {parts[1]}/>
-      <Part part = {parts[2]}/>
+      <Part part = {course.parts[0]}/>
+      <Part part = {course.parts[1]}/>
+      <Part part = {course.parts[2]}/>
     </div>
   )
 }
 
-const Total = ({parts}) => {
-  const total_ex = parts[0].exercises + parts[1].exercises + parts[2].exercises
+const Total = ({course}) => {
+  const arr = course.parts
+  const total_ex = arr[0].exercises + arr[1].exercises + arr[2].exercises
   console.log('this is the Total number of exercises: ' +  total_ex)
   return(
     <div>
