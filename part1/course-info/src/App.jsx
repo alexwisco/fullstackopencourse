@@ -4,40 +4,40 @@ import { useState } from 'react'
 // some components (Header, Part, still use the constant fields while 
 // content and total I tried passing the objects instead, does the same thing in
 // the end, but figuring out different ways)
+
+// update 4 hours after commiting - Didn't wait for task 1.3, which asks me to
+// do what I did, but a little differently, so I will redo with the proper formatting
+
 function App() {
   const course = 'Half Stack App Development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
 
-  const parts = {
-    one: 'Fundamentals of React',
-    two: 'Using props to pass data',
-    three: 'State of a component',
-  }
+  const parts = [
+    {
+    name: ' Fundamentals of React',
+    exercises: 10,
+    },
 
-  const ex = {
-    one: 10,
-    two: 7,
-    three: 14,
-  }
+    {
+    name: 'Using props to pass data',
+    exercises: 7,
+    },
 
-  const obj1 = {
-    name: 'jeff',
-    age: 12,
-    education: 'PhD',
-  }
+    { 
+    name: 'State of a component',
+    exercises: 14
+    }
+
+  ]
   return (
     <div>
 
       <Header course = {course}/>
     
-      <Content parts data = {parts} ex data01 = {ex} />
+      <Content parts = {parts} />
+
+  
     
-      <Total ex data = {ex} />
+      <Total parts = {parts}/>
 
     </div>
   )
@@ -53,40 +53,34 @@ const Header = (props) => {
   )
 }
 
-// redoing overall organization. Instead of using a handful of globals,
-// work with just two objects instead (is there even a difference?)
-// Not better or worse, just practicing different ways to do the same thing
-const Content = ({data, data01}) => {
-  // check if we're passing arguments properly
-  console.log("Data: " + data.one)
-  console.log("Data01: " + data01.one)
+
+const Content = ({parts}) => {
   // For Part components, match the index from 'parts' to the same index from 'ex'
   // to properly format the Part components into the Content component
   return(
     <div>
-      <Part name = {data.one} number = {data01.one}/>
-      <Part name = {data.two} number = {data01.two}/>
-      <Part name = {data.three} number = {data01.three}/>
+      <Part part = {parts[0]}/>
+      <Part part = {parts[1]}/>
+      <Part part = {parts[2]}/>
     </div>
   )
 }
 
-const Total = ({data}) => {
-  const tote = data.one + data.two + data.three
-  console.log('this is the Total: ' +  tote)
+const Total = ({parts}) => {
+  const total_ex = parts[0].exercises + parts[1].exercises + parts[2].exercises
+  console.log('this is the Total number of exercises: ' +  total_ex)
   return(
     <div>
-      <p> Total exercises: {tote}  </p>
+      <p> Total exercises: {total_ex}  </p>
     </div>
   )
 }
 
-const Part = ({name, number}) => {
-  console.log('this is Part: ' + name + " with "
-     + number + " exercises" )
+const Part = ({part}) => {
+    console.log(part.name + " has " + part.exercises + " exercises total")
   return(
     <div>
-      <p> {name} {number} </p>
+      <p> {part.name} {part.exercises} </p>
     </div>
   )
 }
