@@ -1,6 +1,9 @@
 import { useState } from 'react'
 
-
+//redoing some of the exercises after practicing more with objects and props
+// some components (Header, Part, still use the constant fields while 
+// content and total I tried passing the objects instead, does the same thing in
+// the end, but figuring out different ways)
 function App() {
   const course = 'Half Stack App Development'
   const part1 = 'Fundamentals of React'
@@ -10,31 +13,39 @@ function App() {
   const part3 = 'State of a component'
   const exercises3 = 14
 
+  const parts = {
+    one: 'Fundamentals of React',
+    two: 'Using props to pass data',
+    three: 'State of a component',
+  }
+
+  const ex = {
+    one: 10,
+    two: 7,
+    three: 14,
+  }
+
+  const obj1 = {
+    name: 'jeff',
+    age: 12,
+    education: 'PhD',
+  }
   return (
     <div>
 
       <Header course = {course}/>
-      
-      <Content part1 = {part1}
-              part2 = {part2}
-              part3 = {part3}
-              exercises1 = {exercises1}
-              exercises2 = {exercises2}
-              exercises3 = {exercises3}/> 
     
-      <Total exercises1 = {exercises1}
-             exercises2 ={exercises2}
-             exercises3={exercises3}/>
-
-
+      <Content parts data = {parts} ex data01 = {ex} />
     
+      <Total ex data = {ex} />
+
     </div>
   )
 }
 
+// Insert div with h1 title
 const Header = (props) => {
   console.log('this is the header: ' + props.course)
-
   return(
     <div>
       <h1> {props.course}  </h1>
@@ -42,19 +53,26 @@ const Header = (props) => {
   )
 }
 
-const Content = (props) => {
-  console.log('')
+// redoing overall organization. Instead of using a handful of globals,
+// work with just two objects instead (is there even a difference?)
+// Not better or worse, just practicing different ways to do the same thing
+const Content = ({data, data01}) => {
+  // check if we're passing arguments properly
+  console.log("Data: " + data.one)
+  console.log("Data01: " + data01.one)
+  // For Part components, match the index from 'parts' to the same index from 'ex'
+  // to properly format the Part components into the Content component
   return(
     <div>
-      <Part name = {props.part1} number = {props.exercises1}/>
-      <Part name = {props.part2} number = {props.exercises2}/>
-      <Part name = {props.part3} number = {props.exercises3}/>
+      <Part name = {data.one} number = {data01.one}/>
+      <Part name = {data.two} number = {data01.two}/>
+      <Part name = {data.three} number = {data01.three}/>
     </div>
   )
 }
 
-const Total = (props) => {
-  const tote = props.exercises1 + props.exercises2 + props.exercises3
+const Total = ({data}) => {
+  const tote = data.one + data.two + data.three
   console.log('this is the Total: ' +  tote)
   return(
     <div>
@@ -63,12 +81,12 @@ const Total = (props) => {
   )
 }
 
-const Part = (props) => {
-  console.log('this is Part: ' + props.name + " with "
-     + props.number + " exercises" )
+const Part = ({name, number}) => {
+  console.log('this is Part: ' + name + " with "
+     + number + " exercises" )
   return(
     <div>
-      <p> {props.name} {props.number} </p>
+      <p> {name} {number} </p>
     </div>
   )
 }
