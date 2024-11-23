@@ -10,6 +10,9 @@ const [bad, setBad] = useState(0)
 const [total, setTotal] = useState(0)
 const [average, setAverage] = useState(0)
 const [averageCount, setAverageCount] = useState(0)
+// added for 1.8, table of values and table of text for Statistics display component
+const vals = [good, neutral, bad]
+const texts = ['good', 'neutral', 'bad']
 
 // task 1.7 asks to include more statistics such as total, average, etc.
 // I plan to introduce new variables to keep better track rather than just doing 
@@ -26,7 +29,7 @@ const handleClick = (val) => () => {
     let newTotal = total
     let newAverage = average
     let newAverageCount = averageCount
-  
+
     // Also track new total value on each button click:
     // Moved this above for easier average tracking 
     //console.log('before: ', newTotal)
@@ -96,18 +99,40 @@ const handleClick = (val) => () => {
         <Button handler={handleClick('bad')} text = 'bad'/> 
         <Button handler={reset} text = 'reset count'/> 
         <h1>Statistics</h1>
-        <Display val={good} text = 'good: '/>  
-        <Display val={neutral} text = 'neutral: '/>
-        <Display val={bad} text = 'bad: '/>
-        <Display val={total} text = 'total: '/>
-        <Display val={average} text = 'average'/>
-        
-
+        <Statistics vals = {vals}
+         texts = {texts}
+         total = {total}
+         average = {average} />
      </div>
    
    </>
   )
 } // App
+
+// for rendering the stats on the webpage. 1.9 update: only display when there are stats
+const Statistics = ({vals,texts, total, average}) => {
+  //console.log(vals)
+  console.log('total before: ', total)
+  if (total === 0) return (
+      <div>
+        Mess around with the buttons to see feedback stats
+      </div>
+    )
+
+   else {
+    return(
+    <>
+    <div>
+    <Display val={vals[0]} text = {texts[0]}/>  
+    <Display val={vals[1]} text = {texts[1]}/>
+    <Display val={vals[2]} text = {texts[2]}/>
+    <Display val={total} text = 'total: '/>
+    <Display val={average} text = 'average'/>
+    </div>
+    </>
+  )      
+}
+}
 
 // Button Component - for buttons
 const Button = ({text, handler}) => {
