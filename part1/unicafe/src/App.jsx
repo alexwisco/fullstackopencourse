@@ -9,6 +9,7 @@ const [neutral, setNeutral] = useState(0)
 const [bad, setBad] = useState(0)
 const [total, setTotal] = useState(0)
 const [average, setAverage] = useState(0)
+const [averageCount, setAverageCount] = useState(0)
 
 // task 1.7 asks to include more statistics such as total, average, etc.
 // I plan to introduce new variables to keep better track rather than just doing 
@@ -23,35 +24,53 @@ const handleClick = (val) => () => {
     let newNeutral = neutral
     let newBad = bad
     let newTotal = total
+    let newAverage = average
+    let newAverageCount = averageCount
   
-
-    if (val === 'good') {
-      newGood = good + 1 // wonder if I can just inc. newGood? 
-      setGood(newGood)
-    }
-
-    if (val === 'neutral') {
-      newNeutral = neutral + 1
-      setNeutral(newNeutral)
-    } 
-
-    if (val === 'bad'){
-      newBad = bad + 1
-      setBad(newBad)
-    }
-
     // Also track new total value on each button click:
+    // Moved this above for easier average tracking 
     //console.log('before: ', newTotal)
     newTotal = total + 1
     //console.log('after: ', newTotal)
     setTotal(newTotal)
     //console.log('after again: ', newTotal)
 
+    if (val === 'good') {
+      newGood = good + 1 // wonder if I can just inc. newGood? 
+      setGood(newGood)
+      // good is 1 for our average
+      newAverageCount = averageCount + 1
+      setAverageCount(newAverageCount)
+    }
+
+    if (val === 'neutral') {
+      newNeutral = neutral + 1
+      setNeutral(newNeutral)
+      // can leave average counting blank as neutral is 0
+    } 
+
+    if (val === 'bad'){
+      newBad = bad + 1
+      setBad(newBad)
+      // bad is -1 for our average
+      newAverageCount = averageCount - 1
+      setAverageCount(newAverageCount)
+    }
+    // avg - calc outside of conditionals
+    newAverage = newAverageCount / newTotal
+    setAverage(newAverage)
+    
+
     console.log("good: ", {newGood},
        " neutral: ", {newNeutral},
         " bad: ", {newBad},
-      "total: ",{newTotal})
-  }
+      "total: ",{newTotal},
+      "Average Count: ", {newAverageCount},
+    "Average: ", {newAverage}
+  )}
+
+  // getting the average (good = 1, neutral 0, bad = -1)
+
 
   // resetting feedback inputs - for fun
   const reset = () => {
@@ -59,6 +78,8 @@ const handleClick = (val) => () => {
     setNeutral(0)
     setBad(0)
     setTotal(0)
+    setAverage(0)
+    setAverageCount(0)
     console.log('all values reset')
   }
 
@@ -79,6 +100,7 @@ const handleClick = (val) => () => {
         <Display val={neutral} text = 'neutral: '/>
         <Display val={bad} text = 'bad: '/>
         <Display val={total} text = 'total: '/>
+        <Display val={average} text = 'average'/>
         
 
      </div>
