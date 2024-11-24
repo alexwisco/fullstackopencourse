@@ -8,6 +8,7 @@ import { useState } from 'react'
 // update 4 hours after commiting - Didn't wait for task 1.3, which asks me to
 // do what I did, but a little differently, so I will redo with the proper formatting
 
+// Assignment 2.1-2.5, new tasks
 function App() {
 
   const nimi = 'Pekka'
@@ -53,6 +54,7 @@ function App() {
 }
 
 const Hello = (props) => {
+  //destructuring
   const {name, age} = props
 
   const yearNow = new Date().getFullYear()
