@@ -9,10 +9,9 @@ import { useState } from 'react'
 // do what I did, but a little differently, so I will redo with the proper formatting
 
 // Assignment 2.1-2.5, new tasks
+// -> reformatting into individual components
 function App() {
 
-  const nimi = 'Pekka'
-    const ika = 10
   const course = {
     name: 'Half Stack application development',
     parts: [
@@ -31,10 +30,7 @@ function App() {
     ]
   }
 
-  const props = {
-    name: 'maya',
-    age:36,
-  }
+
 
   return (
     <div>
@@ -45,30 +41,10 @@ function App() {
 
       <Total course = {course}/>
 
-      <h1>Greetings</h1>
-        <Hello name="Maya" age={26 + 10} />
-        <Hello name={nimi} age={ika} />
-
     </div>
   )
 }
 
-const Hello = (props) => {
-  //destructuring
-  const {name, age} = props
-
-  const yearNow = new Date().getFullYear()
-  const by = (yearNow - age)
-  
-  return (
-    <div>
-      <p>
-        Hello {name}, you are {age} years old.
-        Therefore, you were born in the year {by}
-      </p>
-    </div>
-  )
-}
 
 // Insert div with h1 title
 const Header = ({course}) => {
