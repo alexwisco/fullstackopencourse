@@ -5,7 +5,6 @@ import Total from './Total.jsx'
 import Content from './Content.jsx'
 
 const Course = ({course}) => {
-
     return(
         <div>
             <Header course = {course}/>
@@ -13,9 +12,7 @@ const Course = ({course}) => {
             <Content parts = {course.parts} />
 
             <Total parts = {course.parts}/>
-
         </div>
-
     )
 }
 
