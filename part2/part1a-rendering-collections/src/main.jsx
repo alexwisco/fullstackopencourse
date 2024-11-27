@@ -23,3 +23,9 @@ const notes = [
 ReactDOM.createRoot(document.getElementById('root')).render(
   <App notes={notes} />
 )
+
+// Generates a new array called result.
+// takes 'notes[]', takes the id from each ind,
+// stores in new array result[]
+const result = notes.map(note => note.id)
+console.log("ID results of notes: ", result)
