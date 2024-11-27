@@ -5,13 +5,17 @@ import App from './App.jsx'
 import ReactDOM from 'react-dom/client'
 
 const persons = [
-  {name: 'Prince Bean'},
-  {name: 'Bean Prince'},
+  {
+    name: 'Prince Bean',
+    number: 1234567890
+  },
+  {
+    name: 'Bean Prince',
+    number: 9876543210
+  }
 ]
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <App persons = {persons}/>
 )
 
-const print = persons.map(person => person.name)
-console.log('persons: ', print)
