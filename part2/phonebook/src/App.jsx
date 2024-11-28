@@ -7,6 +7,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [test, setTest] = useState(0)
 
 
   useEffect(() => {
@@ -19,6 +20,19 @@ const App = () => {
         })
   }, [])
   console.log('render ', persons.length, ' notes')
+
+  /* Testing functionality of json url (added /3 to .get url)
+  useEffect(() => {
+    console.log('testing!')
+    axios
+      .get('http://localhost:3001/persons/3')
+      .then(response => {
+        console.log('promise fulfilled')
+        sety(response.data)
+      })
+  }, [])
+  console.log('y: ', y)
+  */
  
 
   // When user types in form submission box
