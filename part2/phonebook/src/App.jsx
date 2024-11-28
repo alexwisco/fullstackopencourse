@@ -7,8 +7,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  const [test, setTest] = useState(0)
-
+  //const [test, setTest] = useState(0) only used for testing 
 
   useEffect(() => {
     console.log('effect')
@@ -21,20 +20,6 @@ const App = () => {
   }, [])
   console.log('render ', persons.length, ' notes')
 
-  /* Testing functionality of json url (added /3 to .get url)
-  useEffect(() => {
-    console.log('testing!')
-    axios
-      .get('http://localhost:3001/persons/3')
-      .then(response => {
-        console.log('promise fulfilled')
-        sety(response.data)
-      })
-  }, [])
-  console.log('y: ', y)
-  */
- 
-
   // When user types in form submission box
   const handleNameChange = (e) => {
     setNewName(e.target.value)
@@ -45,39 +30,26 @@ const App = () => {
     setNewNumber(e.target.value)
   }//
 
-
-
   // User has clicked the submit button (the event e).
-  // Creates new person object with the name the user has 
+  // Creates new person object with the name/number the user has 
   // typed in. Adds new person to phonebook, also printing it. 
   const addPerson = (e) => {
     //console.log('beep')
     e.preventDefault()
 
+    // obj to be added. 
     const personObj = {
       name: newName,
       number: newNumber
     } 
-    // Check if the person is in our phonebook already 
-    if (persons.some(person => person.name === newName)){
-      console.log('BEEEEEP: ', `${newName} is already added to phonebook. Not Added.`)
-      setNewName('')
-      return
-    }
 
-    // Adding new person to phonebook
-    setPersons(persons.concat(personObj))
-
-    // printing
-    // We don't like pushing, concat instead
-    let newPersonsList = persons.concat(personObj)
-    newPersonsList.map(person =>
-      console.log("Person's name: ", person.name, ", Person's number: ", person.number)
-    )
-
-    setNewName('') // clear new name so the textbox doesn't fill up with prev. names
-    setNewNumber('') // same as above
-
+  axios 
+      .post('http://localhost:3001/persons', personObj)
+      .then(response => {
+        setPersons(persons.concat(response.data)) // concat - make copy rather than chage state
+        setNewName('') // clear input box
+        setNewNumber('') // ^
+      })
   } // addPerson
 
   return (
@@ -100,7 +72,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
          {persons.map(person => 
-          <Person key={person.name} person={person} />
+          <Person key={person.id} person={person} />
         )}
       </ul>
     </div>
