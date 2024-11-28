@@ -1,7 +1,20 @@
 import ReactDOM from 'react-dom/client'
-
+import axios from 'axios'
 import App from './App'
 
+// get returns a promise - an async operation
+  /*
+    - initially pending, not yet occured
+    - if operation successful, fulfilled / resolved
+    - rejected, failed operation
+  */
+    
+
+      ReactDOM.createRoot(document.getElementById('root')).render(
+        <App/>)
+   
+
+    /* Moved data for application to db.json
 const notes = [
   {
     id: 1,
@@ -19,13 +32,12 @@ const notes = [
     important: true
   }
 ]
+*/
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <App notes={notes} />
-)
+
 
 // Generates a new array called result.
 // takes 'notes[]', takes the id from each ind,
 // stores in new array result[]
-const result = notes.map(note => note.id)
-console.log("ID results of notes: ", result)
+//const result = notes.map(note => note.id)
+//console.log("ID results of notes: ", result)

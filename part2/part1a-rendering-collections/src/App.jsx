@@ -1,18 +1,38 @@
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
+import axios from 'axios'
 import Note from './components/Note'
 
 // working with both a table from main.jsx and components in their 
 // own modules
 
-const App = (props) => {
+const App = () => {
   // Initial value of the table declaring the notes passed as props
-  const [notes, setNotes] = useState(props.notes)
+  const [notes, setNotes] = useState([]) // init empty - added through json
   const [newNote, setNewNote] = useState(
     'a new note...' // placeholder text for input box - cannot be changed yet 
   )
   // Only displaying notes if they are important.
   const [showAll, setShowAll] = useState(false) // 
 
+
+  // useEffect is given two parameters.
+  // 1. the function (or the effect), whic hruns after every render
+  // can choose to fire only when certain values changed.
+  // We only want to run the effect on first render.
+
+  // 2. Specifies how often effect is executed. An empty table means
+  // only execute after the first render of the component.
+  // 
+  useEffect(() => {
+    console.log('effect')
+    axios
+        .get('http://localhost:3001/notes')
+        .then(response => {
+          console.log('promise fulfilled')
+          setNotes(response.data)
+        })
+  }, [])
+  console.log('render ', notes.length, ' notes')
   const handleNoteChange = (e) => {
     //console.log(e.target.value)
     setNewNote(e.target.value)
