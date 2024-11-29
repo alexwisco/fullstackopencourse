@@ -86,22 +86,22 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
       <form onSubmit={addPerson}>
 
         <div>
-          name: <input value = {newName} onChange={handleNameChange}/>
+          <p>name:</p> <input value = {newName} onChange={handleNameChange}/>
         </div>
 
         <div>
-          number: <input value = {newNumber} onChange={handleNumberChange}/>
+        <p>name:</p> <input value = {newNumber} onChange={handleNumberChange}/>
         </div>
 
         <div>
           <button type="submit">add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
+      <h2>People</h2>
       <ul>
          {persons.map(person => 
           <Person key={person.id}
