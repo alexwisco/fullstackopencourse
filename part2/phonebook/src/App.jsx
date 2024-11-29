@@ -10,36 +10,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   //const [test, setTest] = useState(0) only used for testing 
 
-/* // since adding the services folder and notes.js, we can use the imported functions
-// instead of this for useEffect
-  useEffect(() => {
-    console.log('effect')
-    axios
-        .get('http://localhost:3001/persons')
-        .then(response => {
-          console.log('promise fulfilled')
-          setPersons(response.data)
-        })
-  }, [])
-  */
-
-  //testing 
-  //const base = 'http://localhost:3001/persons'
-  //const idCheck = '243e'
-  //console.log(`${base}/${idCheck}`)
-
-  const deletion = (id) => {
-    // get name of id deleted
-    const obj = persons.find(person => person.id === id)
-    const objName = obj.name
-    window.confirm(` delete ${objName}?`)
-    noteService
-        .personDelete(id)
-        // add a check for this?
-    console.log(objName, ' has been deleted')
-  }
-
-
 
 
   // retrieving from json server
@@ -77,18 +47,6 @@ const App = () => {
       number: newNumber // number from input box set by handleNumberChange
     } 
 
-    /*
-  axios 
-      .post('http://localhost:3001/persons', personObj)
-      .then(response => {
-        setPersons(persons.concat(response.data)) // concat - make copy rather than chage state
-        console.log(response.data)
-        setNewName('') // clear input box
-        setNewNumber('') // ^
-      })
-        */
-
-
       noteService
           .create(personObj)
           .then(person => {
@@ -103,9 +61,28 @@ const App = () => {
  
   } // addPerson
 
-  // add contact deleting - 2.14
-  // What do i need: create new table and return, dont take one out of db.
-  // 
+  // delete a user from the phonebook.
+  // No data sent with request, just need baseUrl / id of the person
+  // uses callback function from notes.js
+  const deletePerson = (id) => {
+    // get name of id deleted
+    const obj = persons.find(person => person.id === id)
+    const objName = obj.name
+    // added checks
+   if (window.confirm(`Delete ${objName}?`)) { // if user is sure
+    noteService
+        .personDelete(id) // callback from notes.js
+        .then(() => {
+          // can't forget to update the ui lol (i forgot)
+          setPersons(persons.filter(person => person.id !== id)) 
+          console.log(objName, ' has been deleted')
+        })
+        // error checking functionality
+        .catch(error => {
+          console.error('Error with deletion of: ', error)
+        })
+   }
+  } // deletePerson
 
   return (
     <div>
@@ -129,7 +106,7 @@ const App = () => {
          {persons.map(person => 
           <Person key={person.id}
            person={person}
-           personDelete={() => deletion(person.id)} />
+           personDelete={() => deletePerson(person.id)} />
         )}
       </ul>
     </div>

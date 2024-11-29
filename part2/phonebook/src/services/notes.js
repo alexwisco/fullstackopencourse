@@ -1,6 +1,7 @@
 import axios from 'axios'
 const baseUrl = 'http://localhost:3001/persons'
 
+// called on page start up to get everyone in the db
 const getAll = () => {
   //return axios.get(baseUrl)
   const request = axios.get(baseUrl)
@@ -13,6 +14,7 @@ const getAll = () => {
   })
 }
 
+// adding a new person to the phonebook.
 const create = newObject => {
   //return axios.post(baseUrl)
   const request = axios.post(baseUrl, newObject)
