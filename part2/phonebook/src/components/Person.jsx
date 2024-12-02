@@ -5,7 +5,7 @@ const Person = ({person, personDelete}) => {
   // next?
     return (
       <div>
-        <p className="perosn"> {person.name}: {person.number}</p>
+        <p> {person.name}: {person.number}</p>
         <button onClick={personDelete}> delete </button>
       </div>
     )
